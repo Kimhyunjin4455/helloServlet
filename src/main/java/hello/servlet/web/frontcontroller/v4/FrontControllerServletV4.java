@@ -23,11 +23,13 @@ import java.util.Map;
 public class FrontControllerServletV4 extends HttpServlet {
 
     private Map<String, ControllerV4> controllerMap = new HashMap<>();
+
     public FrontControllerServletV4() {
         controllerMap.put("/front-controller/v4/members/new-form", new MemberFormControllerV4());
         controllerMap.put("/front-controller/v4/members/save", new MemberSaveControllerV4());
         controllerMap.put("/front-controller/v4/members", new MemberListControllerV4());
     }
+
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("FrontControllerServletV4.service");
@@ -36,7 +38,7 @@ public class FrontControllerServletV4 extends HttpServlet {
         String requestURI = request.getRequestURI();
 
         ControllerV4 controller = controllerMap.get(requestURI); // ControllerV4 controller = new MemberListControllerV4 가능(다형성)
-        if (controller == null){
+        if (controller == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
@@ -64,3 +66,4 @@ public class FrontControllerServletV4 extends HttpServlet {
         return new MyView("/WEB-INF/views/" + viewName + ".jsp");
 
     }
+}
